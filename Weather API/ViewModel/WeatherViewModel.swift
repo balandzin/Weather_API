@@ -66,6 +66,8 @@ final class WeatherViewModel {
                 self?.forecast = forecast
             }
         }
+        
+        saveForecastToUserDefaults()
     }
     
     func getWeatherIcon(for iconCode: String) -> String {
@@ -92,5 +94,22 @@ final class WeatherViewModel {
     
     private func handleAuthorizationDenied() {
         onAuthorizationDenied?()
+    }
+}
+
+extension WeatherViewModel {
+    func saveForecastToUserDefaults() {
+        if let forecast = try? JSONEncoder().encode(self.forecast) {
+            UserDefaults.standard.set(forecast, forKey: "savedForecast")
+        }
+    }
+    
+    func loadForecastFromUserDefaults() {
+        if let data = UserDefaults.standard.data(forKey: "savedForecast") {
+            if let savedForecast = try? JSONDecoder().decode(Forecast.self, from: data) {
+                self.forecast = savedForecast
+                self.onUpdate?()
+            }
+        }
     }
 }
