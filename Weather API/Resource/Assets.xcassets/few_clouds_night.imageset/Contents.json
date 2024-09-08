@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "weather-few-clouds-night-icon-2048x1439-h2poyjts.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "weather-few-clouds-night-icon-2048x1439-h2poyjts 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "weather-few-clouds-night-icon-2048x1439-h2poyjts 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
