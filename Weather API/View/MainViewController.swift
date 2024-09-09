@@ -41,7 +41,12 @@ final class MainViewController: UIViewController, UITextFieldDelegate, TabBarCon
     private lazy var cityNameTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.placeholder = "Введите названия города"
+        textField.placeholder = "Введите город и нажмите центральную кнопку"
+        if let placeholder = textField.placeholder {
+            let attributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+                              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
+            textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: attributes)
+        }
         return textField
     }()
     
