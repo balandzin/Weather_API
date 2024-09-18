@@ -86,6 +86,9 @@ final class MainViewController: UIViewController, UITextFieldDelegate, TabBarCon
             tabBarController.delegateTabBar = self
         }
         updateUI()
+        
+        registerForKeyboardNotification()
+        unregisterForKeyboardNotification()
     }
     
     // MARK: - Override Methods
@@ -151,7 +154,7 @@ extension MainViewController {
         
         NSLayoutConstraint.activate([
             cityLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cityLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
+            cityLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             cityLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             cityLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
@@ -190,4 +193,30 @@ extension MainViewController {
         return true
     }
 }
+
+private extension MainViewController {
+    func registerForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+    }
+    
+    func unregisterForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:
+                                                UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillHide () {
+        view.frame.origin.y = 0
+    }
+    
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        guard let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as?
+                CGRect else { return }
+        
+        view.frame.origin.y = -frame.height + 100
+    }
+}
+
 
